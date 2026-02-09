@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>熊本 上通・下通 美食地圖</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 粘性頂部導覽 -->
+    <nav class="sticky-nav">
+        <div class="nav-container">
+            <div class="nav-logo">熊本美食</div>
+            <div class="nav-links">
+                <a href="#intro">簡介</a>
+                <a href="#itinerary">自理用餐行程</a>
+                <a href="#restaurants">美食清單</a>
+                <a href="#travel-checklist">出國準備</a>
+                <a href="#tips">行前提醒</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">熊本 上通・下通</h1>
+            <p class="hero-subtitle">精選美食地圖</p>
+            <p class="hero-description">探索熊本最繁華街區的道地滋味</p>
+            <a href="#restaurants" class="hero-cta">開始探索</a>
+        </div>
+    </section>
+
+    <!-- 簡介 -->
+    <section id="intro" class="intro-section">
+        <div class="container">
+            <h2 class="section-title">關於上通・下通</h2>
+            <div class="intro-content">
+                <p>上通（かみとおり）與下通（しもとおり）是熊本市中心最熱鬧的兩條購物街，這裡匯集了傳統美食與現代餐飲，是品味熊本道地料理的最佳地點。</p>
+                <p>從熊本車站搭乘市電約15分鐘即可抵達，無論是馬肉料理、熊本拉麵，還是精緻甜點，這裡都能滿足您的味蕾。</p>
+            </div>
+            <div class="intro-stats">
+                <div class="stat-item">
+                    <div class="stat-number">19</div>
+                    <div class="stat-label">精選店家</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">美食類型</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">道地體驗</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 自理用餐行程（依 PDF 行程） -->
+    <section id="itinerary" class="itinerary-section">
+        <div class="container">
+            <h2 class="section-title">自理用餐行程（依行程步行可達）</h2>
+            <div class="intro-content">
+                <p>依你的團體行程（2026/02/10-02/14）整理出「需要自己找飯吃」的時段：<b>D1 熊本上通/下通（晚餐）</b>、<b>D3 福岡天神（午/晚餐）</b>、<b>D4 回熊本（晚餐）</b>。以下清單以「從主要點步行可達」為優先，並附 Google 地圖與來源連結。</p>
+            </div>
+
+            <div class="day-filters">
+                <button class="day-filter-btn active" data-dayfilter="all">全部</button>
+                <button class="day-filter-btn" data-dayfilter="D1">D1</button>
+                <button class="day-filter-btn" data-dayfilter="D3">D3</button>
+                <button class="day-filter-btn" data-dayfilter="D4">D4</button>
+            </div>
+
+            <div class="itinerary-tabs">
+                <button class="filter-btn active" data-day="D1">D1 熊本｜上通下通（晚餐）</button>
+                <button class="filter-btn" data-day="D3">D3 福岡｜天神（午/晚餐）</button>
+                <button class="filter-btn" data-day="D4">D4 熊本｜回熊本（晚餐）</button>
+            </div>
+
+            <div class="itinerary-grid" id="itineraryGrid">
+                <!-- JavaScript 動態載入 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 分類篩選 -->
+    <section id="restaurants" class="restaurants-section">
+        <div class="container">
+            <h2 class="section-title">美食清單</h2>
+            
+            <!-- 分類按鈕 -->
+            <div class="category-filters">
+                <button class="filter-btn active" data-category="all">全部</button>
+                <button class="filter-btn" data-category="拉麵">拉麵</button>
+                <button class="filter-btn" data-category="馬肉料理">馬肉料理</button>
+                <button class="filter-btn" data-category="居酒屋">居酒屋</button>
+                <button class="filter-btn" data-category="燒肉">燒肉</button>
+                <button class="filter-btn" data-category="甜點">甜點</button>
+                <button class="filter-btn" data-category="其他">其他</button>
+            </div>
+
+            <div class="day-filter-hint" id="dayFilterHint" style="display:none;"></div>
+
+            <!-- 餐廳卡片列表 -->
+            <div class="restaurants-grid" id="restaurantsGrid">
+                <!-- JavaScript 會動態載入卡片 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 出國旅遊必備 Checklist + 機場禁帶物品 -->
+    <section id="travel-checklist" class="travel-checklist-section">
+        <div class="container">
+            <h2 class="section-title">出國旅遊必備 Checklist</h2>
+            <p class="section-subtitle">掌握出發節奏，輕鬆準備您的熊本之旅</p>
+
+            <!-- 時間軸 -->
+            <div class="timeline-container">
+                <div class="timeline-wrapper">
+                    <div class="timeline-stage" data-timeline="3-months">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-label">3個月前</div>
+                    </div>
+                    <div class="timeline-stage" data-timeline="1-month">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-label">1個月前</div>
+                    </div>
+                    <div class="timeline-stage" data-timeline="1-week">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-label">1週前</div>
+                    </div>
+                    <div class="timeline-stage" data-timeline="1-day">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-label">前一天</div>
+                    </div>
+                    <div class="timeline-stage" data-timeline="departure-day">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-label">出發當天</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 時間軸內容 -->
+            <div class="checklist-content" id="checklistContent">
+                <!-- JavaScript 動態載入 -->
+            </div>
+
+            <!-- 禁帶物品分類 -->
+            <div class="prohibited-items-container">
+                <h3 class="prohibited-title">✈️ 機場/航空禁帶物品一覽</h3>
+                <p class="prohibited-subtitle">以下規則為通用標準，實際規定請依航空/機場公告為準</p>
+
+                <div class="prohibited-grid">
+                    <!-- 隨身/托運 -->
+                    <div class="prohibited-card">
+                        <div class="prohibited-header">
+                            <div class="prohibited-icon">🎒</div>
+                            <h4>隨身 vs 托運</h4>
+                        </div>
+                        <div class="prohibited-body">
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">✓ 可隨身</span>
+                                <p>手機、平板、手錶、眼鏡、書籍、衣物、個人化妝品（固體）</p>
+                            </div>
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">🚫 禁隨身</span>
+                                <p>刀具、剪刀、液體（100ml以上）、膠水等易燃物</p>
+                            </div>
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">✓ 可托運</span>
+                                <p>大部分液體、固體化妝品、衣物、電子產品</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 液體 100ml 規則 -->
+                    <div class="prohibited-card">
+                        <div class="prohibited-header">
+                            <div class="prohibited-icon">💧</div>
+                            <h4>液體 100ml 規則</h4>
+                        </div>
+                        <div class="prohibited-body">
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">規則</span>
+                                <p>單件液體容器 ≤ 100ml，總量 ≤ 1L（1公升），放入透明夾鍊袋</p>
+                            </div>
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">液體定義</span>
+                                <p>乳液、喜歡、化妝水、香水、牙膏、洗面乳、沐浴乳等</p>
+                            </div>
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">提示</span>
+                                <p>備用組件需放托運；部分機場可購買安檢後液體</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 行動電源/鋰電池 -->
+                    <div class="prohibited-card">
+                        <div class="prohibited-header">
+                            <div class="prohibited-icon">🔋</div>
+                            <h4>行動電源/鋰電池</h4>
+                        </div>
+                        <div class="prohibited-body">
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">✓ 可隨身</span>
+                                <p>額定能量 ≤ 100Wh（20,000 mAh），最多 2 件</p>
+                            </div>
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">🚫 禁隨身</span>
+                                <p>額定能量 > 160Wh；未安裝之單獨電池</p>
+                            </div>
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">注意</span>
+                                <p>同時隨身攜帶不超過 2 件；超容量需托運或不攜帶</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 刀剪尖銳物 -->
+                    <div class="prohibited-card">
+                        <div class="prohibited-header">
+                            <div class="prohibited-icon">✂️</div>
+                            <h4>刀剪尖銳物</h4>
+                        </div>
+                        <div class="prohibited-body">
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">🚫 全面禁止</span>
+                                <p>刀具（含美工刀）、剪刀、指甲剪、尖頭工具、剃鬚刀</p>
+                            </div>
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">✓ 例外</span>
+                                <p>托運行李可攜帶鈍刀（需包裝安全，刃長 ≤ 15cm）</p>
+                            </div>
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">提示</span>
+                                <p>抵達目的地後可購買；指甲剪在日本便利店有售</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 易燃/噴霧 -->
+                    <div class="prohibited-card">
+                        <div class="prohibited-header">
+                            <div class="prohibited-icon">🔥</div>
+                            <h4>易燃/噴霧產品</h4>
+                        </div>
+                        <div class="prohibited-body">
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">🚫 禁止</span>
+                                <p>汽油、酒精、香蕉水、膠水、殺蟲劑、防曬噴霧</p>
+                            </div>
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">特殊規定</span>
+                                <p>除臭噴霧、髮膠可托運（有限制），但隨身完全禁止</p>
+                            </div>
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">替代方案</span>
+                                <p>到日本後購買當地產品；防曬液（非噴霧）可隨身</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 打火機 -->
+                    <div class="prohibited-card">
+                        <div class="prohibited-header">
+                            <div class="prohibited-icon">🔦</div>
+                            <h4>打火機/火柴</h4>
+                        </div>
+                        <div class="prohibited-body">
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">🚫 全面禁止</span>
+                                <p>所有類型打火機（含香煙打火機）、火柴完全禁止</p>
+                            </div>
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">隨身+托運</span>
+                                <p>兩者都禁止；無特殊例外</p>
+                            </div>
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">替代方案</span>
+                                <p>到日本後購買；7-11 便利店有售</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 壓縮氣體/其他 -->
+                    <div class="prohibited-card">
+                        <div class="prohibited-header">
+                            <div class="prohibited-icon">⚙️</div>
+                            <h4>壓縮氣體/其他危險品</h4>
+                        </div>
+                        <div class="prohibited-body">
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">🚫 禁止</span>
+                                <p>瓦斯罐、氧氣瓶、乾冰、爆竹、磁鐵（超規格）、放射性物質</p>
+                            </div>
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">常見易忽略</span>
+                                <p>乾冰、磁性玩具、某些醫療設備可能有限制</p>
+                            </div>
+                            <div class="prohibited-item">
+                                <span class="prohibited-rule">建議</span>
+                                <p>如有特殊物品，提前聯繫航空公司確認</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 機場安檢提示 -->
+                <div class="airport-tips">
+                    <h4>✈️ 機場安檢小貼士</h4>
+                    <ul class="tips-list">
+                        <li><strong>提前到達：</strong>國際班機建議起飛前 3 小時到達機場，預留安檢時間</li>
+                        <li><strong>液體分裝：</strong>帶著透明夾鍊袋過安檢，100ml 以下單件液體無需分裝</li>
+                        <li><strong>電子產品：</strong>筆記型電腦、平板需從包包取出過 X 光機</li>
+                        <li><strong>腰帶/鑰匙：</strong>金屬物品提前取下，放入包包或托盤</li>
+                        <li><strong>鞋子：</strong>取下鞋子放入安檢托盤（某些機場可保留）</li>
+                        <li><strong>海關申報：</strong>攜帶超過美金 $10,000 等值現金需申報</li>
+                        <li><strong>購物後液體：</strong>安檢後購買的液體可隨身帶上飛機</li>
+                        <li><strong>如有疑問：</strong>直接詢問安檢人員，不確定的物品事先提出</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 行前小提醒 -->
+    <section id="tips" class="tips-section">
+        <div class="container">
+            <h2 class="section-title">行前小提醒</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon">🕒</div>
+                    <h3>營業時間</h3>
+                    <p>大部分店家午餐 11:30-14:00，晚餐 17:30-22:00。建議提前確認，部分店家週一或不定期公休。</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">👥</div>
+                    <h3>排隊文化</h3>
+                    <p>熱門店家用餐時段常需排隊 30-60 分鐘，建議避開尖峰時段（12:00-13:00、18:30-20:00）或提前訂位。</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">💳</div>
+                    <h3>支付方式</h3>
+                    <p>多數店家接受現金，部分支援 IC 卡（SUICA、PASMO）或信用卡。建議隨身攜帶現金以備不時之需。</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🗺️</div>
+                    <h3>交通資訊</h3>
+                    <p>搭乘熊本市電至「通町筋」站下車，步行即達上通・下通商圈。兩條街相距約 5 分鐘步行距離。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 熊本美食地圖 | 探索最道地的熊本滋味</p>
+            <p class="footer-note">資料僅供參考，實際營業時間與內容請以店家公告為準</p>
+        </div>
+    </footer>
+
+    <!-- 回頂部按鈕 -->
+    <button class="back-to-top" id="backToTop" aria-label="回到頂部">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+    </button>
+
+    <script src="app.js"></script>
+</body>
+</html>
